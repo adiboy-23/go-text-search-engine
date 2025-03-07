@@ -91,4 +91,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Acknowledgments
 
 - [Snowball Stemmer](https://github.com/kljensen/snowball) for word stemming
-- Wikipedia for providing the titles dataset 
+- Wikipedia for providing the titles dataset
+
+![Screenshot 2025-03-07 at 09 58 04](https://github.com/user-attachments/assets/4f49d3ba-bac6-47d3-813f-c88cb3dfd351)
