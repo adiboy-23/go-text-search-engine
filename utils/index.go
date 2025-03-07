@@ -4,7 +4,7 @@ type Index map[string][]int
 
 func (idx Index) Add(docs []document) {
 	for _, doc := range docs {
-		for _, token := range analyze(doc.Text) {
+		for _, token := range analyze(doc.Title) {
 			ids := idx[token]
 			if ids != nil && ids[len(ids)-1] == doc.ID {
 				//Do not add the same id twice

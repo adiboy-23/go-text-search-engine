@@ -10,7 +10,7 @@ import (
 
 func main() {
 	var dumpPath, query string
-	flag.StringVar(&dumpPath, "p", "enwiki-latest-all-titles-in-ns0.gz", "wiki abstract dump path")
+	flag.StringVar(&dumpPath, "p", "enwiki-latest-all-titles-in-ns0.gz", "wiki titles file path")
 	flag.StringVar(&query, "q", "Albert Einstein", "search query")
 	flag.Parse()
 	log.Println("Full text search is in progress...")
@@ -29,7 +29,7 @@ func main() {
 	log.Printf("Search found %d documents in %v", len(matchedIDs), time.Since(start))
 	for _, id := range matchedIDs {
 		doc := docs[id]
-		log.Printf("%d\t%s\n", id, doc.Text)
+		log.Printf("%d\t%s\n", id, doc.Title)
 	}
 
 }

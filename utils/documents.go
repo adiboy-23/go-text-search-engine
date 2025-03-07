@@ -1,15 +1,13 @@
 package utils
 
 import (
+	"bufio"
 	"compress/gzip"
-	"encoding/xml"
 	"os"
 )
 
 type document struct {
 	Title string `xml:"title"`
-	URL   string `xm:"url"`
-	Text  string `xml:"abstract"`
 	ID    int
 }
 
@@ -19,23 +17,30 @@ func LoadDocuments(path string) ([]document, error) {
 		return nil, err
 	}
 	defer f.Close()
+
 	gz, err := gzip.NewReader(f)
 	if err != nil {
 		return nil, err
 	}
 	defer gz.Close()
-	dec := xml.NewDecoder(gz)
-	dec.Strict = false
-	dump := struct {
-		Documents []document `xml:"doc"`
-	}{}
-	if err := dec.Decode(&dump); err != nil {
+
+	var docs []document
+	scanner := bufio.NewScanner(gz)
+	id := 0
+	for scanner.Scan() {
+		title := scanner.Text()
+		if title != "" {
+			docs = append(docs, document{
+				Title: title,
+				ID:    id,
+			})
+			id++
+		}
+	}
+
+	if err := scanner.Err(); err != nil {
 		return nil, err
 	}
-	docs := dump.Documents
-	for i := range docs {
-		docs[i].ID = i
-	}
-	return docs, nil
 
+	return docs, nil
 }
